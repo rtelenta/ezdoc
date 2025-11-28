@@ -1,3 +1,4 @@
+import { WebStorageStateStore } from "oidc-client-ts";
 import { constants } from "./constants";
 
 export const cognitoAuthConfig = {
@@ -10,6 +11,7 @@ export const cognitoAuthConfig = {
   extraQueryParams: {
     lang: "es",
   },
+  userStore: new WebStorageStateStore({ store: window.localStorage }),
 };
 
 export default cognitoAuthConfig;

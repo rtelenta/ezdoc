@@ -1,7 +1,8 @@
 {
   "app": {
     "title": "EzDoc",
-    "description": "Bienvenido a tu plataforma segura de documentos"
+    "description": "Bienvenido a tu plataforma segura de documentos",
+    "welcomeTo": "Bienvenido a"
   },
   "auth": {
     "signIn": "Iniciar sesión",
@@ -45,6 +46,18 @@
     "goBack": "Volver atrás",
     "systemStatus": "Sistema funcionando correctamente",
     "supportMessage": "Si continúas teniendo problemas, contacta con nuestro equipo de soporte."
+  },
+  "sidebar": {
+    "dashboard": "Panel de control",
+    "documents": "Documentos",
+    "users": "Usuarios",
+    "profile": "Perfil",
+    "settings": "Configuración"
+  },
+  "topbar": {
+    "profile": "Ver perfil",
+    "settings": "Configuración",
+    "notifications": "Notificaciones"
   },
   "common": {
     "loading": "Cargando...",

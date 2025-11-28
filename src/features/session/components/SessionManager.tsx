@@ -1,8 +1,9 @@
 import { useAuth } from "react-oidc-context";
 import { useEffect } from "react";
-import { Button, Card, Space } from "antd";
+import { Button, Card } from "antd";
 import { useTranslation } from "react-i18next";
 import { PageLoader } from "@/components/PageLoader";
+import { LoginForm } from "./LoginForm";
 
 export function SessionManager({ children }: { children: React.ReactNode }) {
   const auth = useAuth();
@@ -45,27 +46,5 @@ export function SessionManager({ children }: { children: React.ReactNode }) {
     return children;
   }
 
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <Card className="w-full max-w-md">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6">
-            Bienvenido a {t("app.title")}
-          </h1>
-          <p className="text-gray-600 mb-6">{t("auth.welcomeMessage")}</p>
-
-          <Space orientation="vertical" size="middle" className="w-full">
-            <Button
-              type="primary"
-              size="large"
-              block
-              onClick={() => auth.signinRedirect()}
-            >
-              {t("auth.signInWithCognito")}
-            </Button>
-          </Space>
-        </div>
-      </Card>
-    </div>
-  );
+  return <LoginForm />;
 }

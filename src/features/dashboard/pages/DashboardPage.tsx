@@ -1,27 +1,11 @@
-import { Card, Space, Avatar, Divider, Button, Typography } from "antd";
-import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Card, Space, Avatar, Divider, Typography } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 import { useAuth } from "react-oidc-context";
 import { useTranslation } from "react-i18next";
-import { constants } from "@/config/constants";
 
 export function DashboardPage() {
   const auth = useAuth();
   const { t } = useTranslation();
-
-  const signOutRedirect = async () => {
-    const clientId = auth.settings.client_id;
-    const logoutUri = auth.settings.post_logout_redirect_uri as string;
-    const cognitoDomain = `https://${constants.USER_POOL_ID.replace(
-      "_",
-      ""
-    )}.auth.${constants.AWS_REGION}.amazoncognito.com`;
-
-    await auth.removeUser();
-
-    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
-      logoutUri
-    )}`;
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -74,19 +58,6 @@ export function DashboardPage() {
                     </Typography.Text>
                   </div>
                 )}
-              </div>
-
-              <div className="space-y-2">
-                <Button
-                  type="primary"
-                  danger
-                  icon={<LogoutOutlined />}
-                  onClick={signOutRedirect}
-                  block
-                  size="large"
-                >
-                  {t("auth.completeSignOut")}
-                </Button>
               </div>
             </Space>
           </Card>
