@@ -1,0 +1,64 @@
+{
+  "app": {
+    "title": "EzDoc",
+    "description": "Bienvenido a tu plataforma segura de documentos"
+  },
+  "auth": {
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "signInWithCognito": "Iniciar sesión con AWS Cognito",
+    "completeSignOut": "Cerrar sesión (Completo)",
+    "localSignOut": "Cerrar sesión (Local)",
+    "welcomeMessage": "Por favor inicia sesión para continuar",
+    "authenticationComplete": "¡Autenticación OIDC Completa!",
+    "authenticationDescription": "Tu aplicación ahora está usando AWS Cognito con autenticación estándar OIDC/OAuth 2.0.",
+    "authenticationError": "Error de autenticación",
+    "retry": "Reintentar"
+  },
+  "user": {
+    "profile": "Perfil",
+    "email": "Correo electrónico",
+    "emailVerified": "Correo verificado",
+    "yes": "Sí",
+    "no": "No",
+    "notProvided": "No proporcionado"
+  },
+  "features": {
+    "oauth": "OAuth 2.0 / OIDC estándar",
+    "userPool": "User Pool de AWS Cognito",
+    "authFlow": "Flujo de Código de Autorización",
+    "tokenHandling": "Manejo seguro de tokens"
+  },
+  "debug": {
+    "title": "Información de depuración (remover en producción):",
+    "tokenExpires": "Token expira"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "Lo sentimos, la página que estás buscando no existe o ha sido movida a otra ubicación.",
+    "possibleCauses": "Posibles causas:",
+    "wrongUrl": "La URL fue escrita incorrectamente",
+    "deletedPage": "La página fue eliminada o movida",
+    "outdatedLink": "El enlace está desactualizado",
+    "goHome": "Ir al inicio",
+    "reload": "Recargar página",
+    "goBack": "Volver atrás",
+    "systemStatus": "Sistema funcionando correctamente",
+    "supportMessage": "Si continúas teniendo problemas, contacta con nuestro equipo de soporte."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "actions": "Acciones"
+  }
+}

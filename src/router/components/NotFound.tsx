@@ -5,11 +5,13 @@ import {
   FileSearchOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const { Title, Paragraph } = Typography;
 
 export function NotFound() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const goHome = () => {
     navigate("/");
@@ -45,22 +47,21 @@ export function NotFound() {
                   404
                 </Title>
                 <Title level={2} className="text-gray-800 mb-0">
-                  Página no encontrada
+                  {t("notFound.title")}
                 </Title>
               </div>
             }
             subTitle={
               <div className="space-y-4">
                 <Paragraph className="text-gray-600 text-lg max-w-md mx-auto">
-                  Lo sentimos, la página que estás buscando no existe o ha sido
-                  movida a otra ubicación.
+                  {t("notFound.description")}
                 </Paragraph>
                 <div className="bg-gray-50 rounded-lg p-4 border-l-4 border-blue-400">
                   <Paragraph className="text-gray-700 mb-0 text-sm">
-                    <strong>Posibles causas:</strong>
-                    <br />• La URL fue escrita incorrectamente
-                    <br />• La página fue eliminada o movida
-                    <br />• El enlace está desactualizado
+                    <strong>{t("notFound.possibleCauses")}</strong>
+                    <br />• {t("notFound.wrongUrl")}
+                    <br />• {t("notFound.deletedPage")}
+                    <br />• {t("notFound.outdatedLink")}
                   </Paragraph>
                 </div>
               </div>
@@ -77,7 +78,7 @@ export function NotFound() {
                 onClick={goHome}
                 className="bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 px-8 py-2 h-12 text-base font-medium shadow-lg hover:shadow-xl transition-all duration-200"
               >
-                Ir al inicio
+                {t("notFound.goHome")}
               </Button>
 
               <Button
@@ -86,7 +87,7 @@ export function NotFound() {
                 onClick={refreshPage}
                 className="px-8 py-2 h-12 text-base font-medium hover:border-blue-400 hover:text-blue-600 transition-all duration-200"
               >
-                Recargar página
+                {t("notFound.reload")}
               </Button>
 
               <Button
@@ -94,7 +95,7 @@ export function NotFound() {
                 onClick={goBack}
                 className="px-8 py-2 h-12 text-base font-medium hover:border-gray-400 transition-all duration-200"
               >
-                Volver atrás
+                {t("notFound.goBack")}
               </Button>
             </Space>
           </div>
@@ -105,12 +106,11 @@ export function NotFound() {
           <div className="flex items-center justify-center space-x-4 text-gray-600">
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm">Sistema funcionando correctamente</span>
+              <span className="text-sm">{t("notFound.systemStatus")}</span>
             </div>
           </div>
           <Paragraph className="text-gray-500 text-sm mt-3 mb-0">
-            Si continúas teniendo problemas, contacta con nuestro equipo de
-            soporte.
+            {t("notFound.supportMessage")}
           </Paragraph>
         </div>
       </div>

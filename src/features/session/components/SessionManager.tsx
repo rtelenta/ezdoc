@@ -1,10 +1,12 @@
 import { useAuth } from "react-oidc-context";
 import { useEffect } from "react";
 import { Button, Card, Space } from "antd";
+import { useTranslation } from "react-i18next";
 import { PageLoader } from "@/components/PageLoader";
 
 export function SessionManager({ children }: { children: React.ReactNode }) {
   const auth = useAuth();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (auth.isAuthenticated) {
@@ -27,10 +29,12 @@ export function SessionManager({ children }: { children: React.ReactNode }) {
         <Card className="w-full max-w-md">
           <div className="text-center">
             <h2 className="text-xl font-semibold text-red-600 mb-4">
-              Authentication Error
+              {t("auth.authenticationError")}
             </h2>
             <p className="text-gray-600 mb-4">{auth.error.message}</p>
-            <Button onClick={() => window.location.reload()}>Retry</Button>
+            <Button onClick={() => window.location.reload()}>
+              {t("auth.retry")}
+            </Button>
           </div>
         </Card>
       </div>
@@ -46,11 +50,9 @@ export function SessionManager({ children }: { children: React.ReactNode }) {
       <Card className="w-full max-w-md">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-6">
-            Bienvenido a EzDoc
+            Bienvenido a {t("app.title")}
           </h1>
-          <p className="text-gray-600 mb-6">
-            Por favor, inicie sesión para continuar
-          </p>
+          <p className="text-gray-600 mb-6">{t("auth.welcomeMessage")}</p>
 
           <Space orientation="vertical" size="middle" className="w-full">
             <Button
@@ -59,7 +61,7 @@ export function SessionManager({ children }: { children: React.ReactNode }) {
               block
               onClick={() => auth.signinRedirect()}
             >
-              Iniciar sesión
+              {t("auth.signInWithCognito")}
             </Button>
           </Space>
         </div>
