@@ -59,6 +59,49 @@
     "settings": "Configuración",
     "notifications": "Notificaciones"
   },
+  "templates": {
+    "title": "Plantillas",
+    "description": "Gestiona tus plantillas de documentos",
+    "uploadTemplate": "Subir Plantilla",
+    "newTemplate": "Nueva Plantilla",
+    "noTemplates": "No hay plantillas disponibles",
+    "noTemplatesDescription": "Comienza subiendo tu primera plantilla de documento.",
+    "searchPlaceholder": "Buscar plantillas...",
+    "table": {
+      "name": "Nombre",
+      "author": "Autor",
+      "createdDate": "Fecha de Creación",
+      "updatedDate": "Última Actualización",
+      "version": "Versión",
+      "actions": "Acciones"
+    },
+    "actions": {
+      "view": "Ver Detalles",
+      "download": "Descargar",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "duplicate": "Duplicar"
+    },
+    "filters": {
+      "all": "Todas",
+      "recent": "Recientes",
+      "myTemplates": "Mis Plantillas",
+      "shared": "Compartidas"
+    },
+    "deleteConfirm": {
+      "title": "¿Eliminar plantilla?",
+      "description": "Esta acción no se puede deshacer. La plantilla será eliminada permanentemente.",
+      "confirm": "Sí, eliminar",
+      "cancel": "Cancelar"
+    },
+    "upload": {
+      "title": "Subir Nueva Plantilla",
+      "dragText": "Arrastra tu archivo aquí o",
+      "clickText": "haz clic para seleccionar",
+      "supportedFormats": "Formatos soportados: .docx, .doc",
+      "maxSize": "Tamaño máximo: 10MB"
+    }
+  },
   "common": {
     "loading": "Cargando...",
     "error": "Error",
@@ -72,6 +115,11 @@
     "search": "Buscar",
     "filter": "Filtrar",
     "sort": "Ordenar",
-    "actions": "Acciones"
+    "actions": "Acciones",
+    "date": "Fecha",
+    "name": "Nombre",
+    "author": "Autor",
+    "version": "Versión",
+    "size": "Tamaño"
   }
 }

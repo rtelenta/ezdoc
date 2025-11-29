@@ -38,7 +38,7 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
       key: "documents",
       icon: <FileTextOutlined />,
       label: t("sidebar.documents"),
-      path: "/documents",
+      path: "/templates",
     },
     {
       key: "users",
