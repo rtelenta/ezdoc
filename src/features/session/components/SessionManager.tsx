@@ -4,6 +4,7 @@ import { Button, Card } from "antd";
 import { useTranslation } from "react-i18next";
 import { PageLoader } from "@/components/PageLoader";
 import { LoginForm } from "./LoginForm";
+import { fetcher } from "@/utils/fetcher";
 
 export function SessionManager({ children }: { children: React.ReactNode }) {
   const auth = useAuth();
@@ -19,6 +20,16 @@ export function SessionManager({ children }: { children: React.ReactNode }) {
       }
     }
   }, [auth.isAuthenticated]);
+
+  useEffect(() => {
+    fetcher.interceptors.request.use(async (config) => {
+      if (auth.user) {
+        config.headers["Authorization"] = `Bearer ${auth.user.access_token}`;
+      }
+
+      return config;
+    });
+  }, [auth]);
 
   if (auth.isLoading) {
     return <PageLoader />;

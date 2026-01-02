@@ -4,4 +4,5 @@ export const constants = {
   USER_POOL_CLIENT_ID: import.meta.env.VITE_USER_POOL_CLIENT_ID,
   REDIRECT_URI: import.meta.env.VITE_REDIRECT_URI,
   POST_LOGOUT_REDIRECT_URI: import.meta.env.VITE_POST_LOGOUT_REDIRECT_URI,
+  API_URL: import.meta.env.VITE_API_URL,
 };
