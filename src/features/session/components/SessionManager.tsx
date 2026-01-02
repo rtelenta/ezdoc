@@ -1,5 +1,5 @@
 import { useAuth } from "react-oidc-context";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { Button, Card } from "antd";
 import { useTranslation } from "react-i18next";
 import { PageLoader } from "@/components/PageLoader";
@@ -21,10 +21,10 @@ export function SessionManager({ children }: { children: React.ReactNode }) {
     }
   }, [auth.isAuthenticated]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetcher.interceptors.request.use(async (config) => {
-      if (auth.user) {
-        config.headers["Authorization"] = `Bearer ${auth.user.access_token}`;
+      if (auth?.user?.id_token) {
+        config.headers["Authorization"] = `Bearer ${auth.user.id_token}`;
       }
 
       return config;

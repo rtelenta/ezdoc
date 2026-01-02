@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import {
   Table,
   Button,
   Input,
   Card,
-  Tag,
   Dropdown,
   Modal,
   Upload,
@@ -15,6 +16,7 @@ import {
   Col,
   Statistic,
   Typography,
+  Alert,
 } from "antd";
 import {
   PlusOutlined,
@@ -30,74 +32,28 @@ import {
 } from "@ant-design/icons";
 import type { ColumnsType, TableProps } from "antd/es/table";
 import type { MenuProps } from "antd";
+import { useGetTemplates } from "../useCases/useGetTemplates";
+import type { TemplateType } from "../types/TemplateType";
 
 const { Title, Text } = Typography;
 const { Search } = Input;
 const { Dragger } = Upload;
 
-interface Template {
-  id: string;
-  name: string;
-  author: string;
-  createdDate: string;
-  updatedDate: string;
-  version: string;
-  size: string;
-  fileType: string;
-}
-
 export function TemplatesPage() {
   const { t } = useTranslation();
+  const { data: templates, isLoading, error } = useGetTemplates();
   const [searchText, setSearchText] = useState("");
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType | null>(
     null
   );
 
-  // Mock data - replace with actual API call
-  const mockTemplates: Template[] = [
-    {
-      id: "1",
-      name: "Contrato de Trabajo Estándar",
-      author: "María González",
-      createdDate: "2024-11-01",
-      updatedDate: "2024-11-25",
-      version: "2.1",
-      size: "245 KB",
-      fileType: "docx",
-    },
-    {
-      id: "2",
-      name: "Propuesta Comercial",
-      author: "Carlos Rodríguez",
-      createdDate: "2024-10-15",
-      updatedDate: "2024-11-20",
-      version: "1.5",
-      size: "180 KB",
-      fileType: "docx",
-    },
-    {
-      id: "3",
-      name: "Informe Mensual",
-      author: "Ana López",
-      createdDate: "2024-09-28",
-      updatedDate: "2024-11-18",
-      version: "3.0",
-      size: "320 KB",
-      fileType: "docx",
-    },
-  ];
-
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("es-ES", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+    return format(new Date(dateString), "dd MMM yyyy, HH:mm", { locale: es });
   };
 
-  const handleDelete = (template: Template) => {
+  const handleDelete = (template: TemplateType) => {
     setSelectedTemplate(template);
     setDeleteModalVisible(true);
   };
@@ -109,7 +65,7 @@ export function TemplatesPage() {
     setSelectedTemplate(null);
   };
 
-  const handleAction = (key: string, template: Template) => {
+  const handleAction = (key: string, template: TemplateType) => {
     switch (key) {
       case "view":
         console.log("Viewing template:", template);
@@ -128,7 +84,7 @@ export function TemplatesPage() {
     }
   };
 
-  const getActionMenuItems = (template: Template): MenuProps["items"] => [
+  const getActionMenuItems = (template: TemplateType): MenuProps["items"] => [
     {
       key: "view",
       label: (
@@ -184,61 +140,50 @@ export function TemplatesPage() {
     },
   ];
 
-  const columns: ColumnsType<Template> = [
+  const columns: ColumnsType<TemplateType> = [
     {
       title: t("templates.table.name"),
       dataIndex: "name",
       key: "name",
-      render: (name: string, record: Template) => (
-        <Space>
-          <div>
-            <div className="font-medium text-(--ant-color-text)">{name}</div>
-            <div className="text-(length:--ant-font-size-sm) text-(--ant-color-text-secondary)">
-              {record.size}
-            </div>
+      render: (name: string, record: TemplateType) => (
+        <div>
+          <div className="font-medium text-(--ant-color-text)">{name}</div>
+          <div className="text-(length:--ant-font-size-sm) text-(--ant-color-text-secondary)">
+            {record.id}
           </div>
-        </Space>
+        </div>
       ),
-      sorter: (a, b) => a.name.localeCompare(b.name),
       filteredValue: searchText ? [searchText] : null,
       onFilter: (value, record) =>
-        record.name.toLowerCase().includes(value.toString().toLowerCase()),
+        record.name.toLowerCase().includes(value.toString().toLowerCase()) ||
+        record.id.toLowerCase().includes(value.toString().toLowerCase()),
     },
     {
-      title: t("templates.table.author"),
-      dataIndex: "author",
-      key: "author",
-      sorter: (a, b) => a.author.localeCompare(b.author),
-    },
-    {
-      title: t("templates.table.version"),
-      dataIndex: "version",
-      key: "version",
-      render: (version: string) => <Tag color="blue">v{version}</Tag>,
-      sorter: (a, b) => a.version.localeCompare(b.version),
+      title: t("templates.table.createdBy"),
+      dataIndex: "created_by",
+      key: "created_by",
+      render: (created_by: TemplateType["created_by"]) => (
+        <div>
+          <div className="text-(length:--ant-font-size-sm) text-(--ant-color-text)">
+            {created_by.email}
+          </div>
+        </div>
+      ),
     },
     {
       title: t("templates.table.createdDate"),
-      dataIndex: "createdDate",
-      key: "createdDate",
+      dataIndex: "created_at",
+      key: "created_at",
       render: (date: string) => formatDate(date),
       sorter: (a, b) =>
-        new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime(),
-    },
-    {
-      title: t("templates.table.updatedDate"),
-      dataIndex: "updatedDate",
-      key: "updatedDate",
-      render: (date: string) => formatDate(date),
-      sorter: (a, b) =>
-        new Date(a.updatedDate).getTime() - new Date(b.updatedDate).getTime(),
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
       defaultSortOrder: "descend",
     },
     {
       title: t("templates.table.actions"),
       key: "actions",
       width: 120,
-      render: (_, record: Template) => (
+      render: (_, record: TemplateType) => (
         <Dropdown
           menu={{ items: getActionMenuItems(record) }}
           trigger={["click"]}
@@ -249,10 +194,11 @@ export function TemplatesPage() {
     },
   ];
 
-  const tableProps: TableProps<Template> = {
+  const tableProps: TableProps<TemplateType> = {
     columns,
-    dataSource: mockTemplates,
+    dataSource: templates || [],
     rowKey: "id",
+    loading: isLoading,
     pagination: {
       pageSize: 10,
       showTotal: (total, range) =>
@@ -318,13 +264,25 @@ export function TemplatesPage() {
         </Text>
       </div>
 
+      {/* Error Alert */}
+      {error && (
+        <Alert
+          message={t("templates.error")}
+          description={error.message}
+          type="error"
+          showIcon
+          closable
+        />
+      )}
+
       {/* Statistics Cards */}
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={12} md={6}>
           <Card>
             <Statistic
               title="Total de Plantillas"
-              value={mockTemplates.length}
+              value={templates?.length || 0}
+              loading={isLoading}
               styles={{ content: { color: "#1890ff" } }}
             />
           </Card>
@@ -406,7 +364,7 @@ export function TemplatesPage() {
         <p>{t("templates.deleteConfirm.description")}</p>
         {selectedTemplate && (
           <div className="mt-(--ant-margin-md) p-(--ant-padding-sm) bg-(--ant-color-bg-layout) rounded-(--ant-border-radius)">
-            <Text strong>{selectedTemplate.name}</Text>
+            <Text strong>{selectedTemplate.id}</Text>
           </div>
         )}
       </Modal>
