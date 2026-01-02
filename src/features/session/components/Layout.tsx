@@ -16,7 +16,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="h-screen flex bg-gray-50 relative">
+    <div className="h-screen flex bg-(--ant-color-bg-layout) relative">
       {/* Sidebar */}
       <Sidebar collapsed={sidebarCollapsed} onToggle={handleSidebarToggle} />
 
@@ -26,7 +26,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <TopBar onSidebarToggle={handleSidebarToggle} />
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto bg-gray-50 p-6">
+        <main className="flex-1 overflow-auto bg-(--ant-color-bg-layout) p-(--ant-padding-lg)">
           <div className="max-w-7xl mx-auto">{children}</div>
         </main>
       </div>

@@ -26,13 +26,15 @@ export function SessionManager({ children }: { children: React.ReactNode }) {
 
   if (auth.error) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex items-center justify-center min-h-screen bg-(--ant-color-bg-layout)">
         <Card className="w-full max-w-md">
           <div className="text-center">
-            <h2 className="text-xl font-semibold text-red-600 mb-4">
+            <h2 className="text-(length:--ant-font-size-lg) font-semibold text-(--ant-color-error) mb-(--ant-margin-md)">
               {t("auth.authenticationError")}
             </h2>
-            <p className="text-gray-600 mb-4">{auth.error.message}</p>
+            <p className="text-(--ant-color-text-secondary) mb-(--ant-margin-md)">
+              {auth.error.message}
+            </p>
             <Button onClick={() => window.location.reload()}>
               {t("auth.retry")}
             </Button>

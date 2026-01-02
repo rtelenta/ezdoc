@@ -73,12 +73,18 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
         onClick={() => handleMenuClick(item.path)}
         className={cx(
           "w-full h-12 flex items-center shadow-none!",
-          collapsed ? "px-3" : "px-4 !justify-start rounded-none!",
-          isActive ? "bg-blue-600 text-white" : "hover:bg-gray-100"
+          collapsed
+            ? "px-(--ant-padding-sm)"
+            : "px-(--ant-padding-md) justify-start! rounded-none!",
+          isActive
+            ? "bg-(--ant-color-primary) text-white"
+            : "hover:bg-(--ant-color-bg-text-hover)"
         )}
       >
         {!collapsed && (
-          <span className="ml-3 text-sm font-medium">{item.label}</span>
+          <span className="ml-(--ant-margin-sm) text-(length:--ant-font-size-sm) font-medium">
+            {item.label}
+          </span>
         )}
       </Button>
     );
@@ -107,26 +113,23 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
       {/* Sidebar */}
       <div
         className={cx(
-          "bg-white border-r border-gray-200 h-screen flex flex-col transition-all duration-300 ease-in-out",
-          // Desktop behavior - relative positioning
+          "bg-(--ant-color-bg-container) border-r border-(--ant-color-border) h-screen flex flex-col transition-all duration-300 ease-in-out",
           "md:relative md:h-full md:translate-x-0",
-          // Mobile behavior - fixed positioned overlay
           "fixed top-0 left-0 z-50",
-          // Width - always maintain width, control visibility with translate
           collapsed ? "w-16 md:w-16" : "w-64",
-          // Mobile translation: hide completely when collapsed, show when expanded
-          // Desktop: always visible (md:translate-x-0 overrides)
           collapsed ? "-translate-x-full" : "translate-x-0"
         )}
       >
         {/* Header with toggle button */}
-        <div className="h-16 border-b border-gray-200 flex items-center justify-between px-4">
+        <div className="h-16 border-b border-(--ant-color-border) flex items-center justify-between px-(--ant-padding-md)">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">EZ</span>
+            <div className="w-8 h-8 bg-(--ant-color-primary) rounded-(--ant-border-radius-lg) flex items-center justify-center">
+              <span className="text-white font-bold text-(length:--ant-font-size-sm)">
+                EZ
+              </span>
             </div>
             {!collapsed && (
-              <span className="font-semibold text-gray-800">Doc</span>
+              <span className="font-semibold text-(--ant-color-text)">Doc</span>
             )}
           </div>
         </div>
@@ -134,7 +137,7 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
         {/* Navigation Menu */}
         <nav
           className={cx(
-            "flex flex-col flex-1 py-4 space-y-1",
+            "flex flex-col flex-1 py-(--ant-padding-md) space-y-1",
             collapsed && "items-center"
           )}
         >
@@ -142,9 +145,9 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
         </nav>
 
         {/* Footer */}
-        <div className="border-t border-gray-200 p-4">
+        <div className="border-t border-(--ant-color-border) p-(--ant-padding-md)">
           {!collapsed && (
-            <div className="text-xs text-gray-500 text-center">
+            <div className="text-(length:--ant-font-size) text-(--ant-color-text-secondary) text-center">
               © 2025 EzDoc
             </div>
           )}

@@ -1,4 +1,4 @@
-import { Button, Card, Space } from "antd";
+import { Button, Card, Flex, Space } from "antd";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "react-oidc-context";
 
@@ -7,13 +7,15 @@ export function LoginForm() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <Flex className="flex items-center justify-center min-h-screen bg-(--ant-color-bg-layout)">
       <Card className="w-full max-w-md">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6">
+          <h1 className="text-(length:--ant-font-size-xl) font-bold text-(--ant-color-text) mb-(--ant-margin-lg)">
             {t("app.welcomeTo")} {t("app.title")}
           </h1>
-          <p className="text-gray-600 mb-6">{t("auth.welcomeMessage")}</p>
+          <p className="text-(--ant-color-text-secondary) mb-(--ant-margin-lg)">
+            {t("auth.welcomeMessage")}
+          </p>
 
           <Space orientation="vertical" size="middle" className="w-full">
             <Button
@@ -27,6 +29,6 @@ export function LoginForm() {
           </Space>
         </div>
       </Card>
-    </div>
+    </Flex>
   );
 }
