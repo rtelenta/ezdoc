@@ -4,11 +4,18 @@ import "./index.css";
 import "./config/i18n";
 import { AuthProvider } from "./features/session/context/AuthProvider.tsx";
 import { RouterProvider } from "./router/RouterProvider.tsx";
+import { ConfigProvider, theme } from "antd";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider />
-    </AuthProvider>
+    <ConfigProvider
+      theme={{
+        algorithm: theme.defaultAlgorithm,
+      }}
+    >
+      <AuthProvider>
+        <RouterProvider />
+      </AuthProvider>
+    </ConfigProvider>
   </StrictMode>
 );

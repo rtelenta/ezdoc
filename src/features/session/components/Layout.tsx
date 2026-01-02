@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { Layout as AntLayout } from "antd";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
+
+const { Content } = AntLayout;
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   // Initialize sidebar state - start collapsed on mobile, expanded on desktop
@@ -16,20 +19,17 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="h-screen flex bg-(--ant-color-bg-layout) relative">
-      {/* Sidebar */}
+    <AntLayout className="h-screen">
       <Sidebar collapsed={sidebarCollapsed} onToggle={handleSidebarToggle} />
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Bar */}
-        <TopBar onSidebarToggle={handleSidebarToggle} />
-
-        {/* Page Content */}
-        <main className="flex-1 overflow-auto bg-(--ant-color-bg-layout) p-(--ant-padding-lg)">
-          <div className="max-w-7xl mx-auto">{children}</div>
-        </main>
-      </div>
-    </div>
+      <AntLayout>
+        <TopBar
+          onSidebarToggle={handleSidebarToggle}
+          isSidebarCollapsed={sidebarCollapsed}
+        />
+        <Content className="overflow-auto p-(--ant-padding-lg)">
+          {children}
+        </Content>
+      </AntLayout>
+    </AntLayout>
   );
 };

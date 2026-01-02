@@ -175,7 +175,7 @@ export function TemplatesPage() {
     {
       key: "delete",
       label: (
-        <Space className="text-red-600">
+        <Space className="text-(--ant-color-error)">
           <DeleteOutlined />
           {t("templates.actions.delete")}
         </Space>
@@ -192,8 +192,10 @@ export function TemplatesPage() {
       render: (name: string, record: Template) => (
         <Space>
           <div>
-            <div className="font-medium text-gray-900">{name}</div>
-            <div className="text-sm text-gray-500">{record.size}</div>
+            <div className="font-medium text-(--ant-color-text)">{name}</div>
+            <div className="text-(length:--ant-font-size-sm) text-(--ant-color-text-secondary)">
+              {record.size}
+            </div>
           </div>
         </Space>
       ),
@@ -262,10 +264,13 @@ export function TemplatesPage() {
           image={Empty.PRESENTED_IMAGE_SIMPLE}
           description={
             <div>
-              <div className="text-gray-500 mb-2">
+              <div className="text-(--ant-color-text-secondary) mb-(--ant-margin-xs)">
                 {t("templates.noTemplates")}
               </div>
-              <Text type="secondary" className="text-sm">
+              <Text
+                type="secondary"
+                className="text-(length:--ant-font-size-sm)"
+              >
                 {t("templates.noTemplatesDescription")}
               </Text>
             </div>
@@ -305,10 +310,10 @@ export function TemplatesPage() {
     <div className="space-y-6">
       {/* Header Section */}
       <div>
-        <Title level={2} className="mb-2">
+        <Title level={2} className="mb-(--ant-margin-xs)">
           {t("templates.title")}
         </Title>
-        <Text type="secondary" className="text-lg">
+        <Text type="secondary" className="text-(length:--ant-font-size-lg)">
           {t("templates.description")}
         </Text>
       </div>
@@ -400,7 +405,7 @@ export function TemplatesPage() {
       >
         <p>{t("templates.deleteConfirm.description")}</p>
         {selectedTemplate && (
-          <div className="mt-4 p-3 bg-gray-50 rounded">
+          <div className="mt-(--ant-margin-md) p-(--ant-padding-sm) bg-(--ant-color-bg-layout) rounded-(--ant-border-radius)">
             <Text strong>{selectedTemplate.name}</Text>
           </div>
         )}
@@ -421,14 +426,14 @@ export function TemplatesPage() {
         ]}
         width={600}
       >
-        <div className="py-4">
-          <Dragger {...uploadProps} className="mb-4">
+        <div className="py-(--ant-padding-md)">
+          <Dragger {...uploadProps} className="mb-(--ant-margin-md)">
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
             </p>
             <p className="ant-upload-text">
               {t("templates.upload.dragText")}{" "}
-              <span className="text-blue-600">
+              <span className="text-(--ant-color-primary)">
                 {t("templates.upload.clickText")}
               </span>
             </p>

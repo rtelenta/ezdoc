@@ -8,21 +8,27 @@ export function DashboardPage() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto py-8 px-4">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+    <div className="min-h-screen bg-(--ant-color-bg-layout)">
+      <div className="container mx-auto py-(--ant-padding-lg) px-(--ant-padding-md)">
+        <div className="text-center mb-(--ant-margin-lg)">
+          <h1 className="text-(length:--ant-font-size-xl) font-bold text-(--ant-color-text) mb-(--ant-margin-xs)">
             {t("app.title")}
           </h1>
-          <p className="text-gray-600">{t("app.description")}</p>
+          <p className="text-(--ant-color-text-secondary)">
+            {t("app.description")}
+          </p>
         </div>
 
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-(--ant-margin-lg)">
           <Card className="w-full max-w-md">
             <Space orientation="vertical" size="middle" className="w-full">
               <div className="text-center">
-                <Avatar size={64} icon={<UserOutlined />} className="mb-3" />
-                <Typography.Title level={4} className="mb-1">
+                <Avatar
+                  size={64}
+                  icon={<UserOutlined />}
+                  className="mb-(--ant-margin-sm)"
+                />
+                <Typography.Title level={4} className="mb-(--ant-margin-xs)">
                   {auth.user?.profile.preferred_username ||
                     auth.user?.profile.email ||
                     "User"}
@@ -36,7 +42,7 @@ export function DashboardPage() {
 
               <Divider />
 
-              <div className="space-y-2 text-sm">
+              <div className="space-y-2 text-(length:--ant-font-size-sm)">
                 {auth.user?.profile.email && (
                   <div>
                     <Typography.Text strong>{t("user.email")}:</Typography.Text>
@@ -65,14 +71,14 @@ export function DashboardPage() {
 
         {/* Main app content */}
         <div className="text-center">
-          <div className="bg-white rounded-lg shadow-md p-8 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          <div className="bg-(--ant-color-bg-container) rounded-(--ant-border-radius-lg) shadow-md p-(--ant-padding-lg) max-w-2xl mx-auto">
+            <h2 className="text-(length:--ant-font-size-lg) font-semibold text-(--ant-color-text) mb-(--ant-margin-md)">
               🎉 {t("auth.authenticationComplete")}
             </h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-(--ant-color-text-secondary) mb-(--ant-margin-md)">
               {t("auth.authenticationDescription")}
             </p>
-            <div className="text-sm text-gray-500">
+            <div className="text-(length:--ant-font-size-sm) text-(--ant-color-text-secondary)">
               <p>✅ OAuth 2.0 / OIDC standard</p>
               <p>✅ AWS Cognito User Pool</p>
               <p>✅ Authorization Code Flow</p>
@@ -81,11 +87,11 @@ export function DashboardPage() {
 
             {/* Debug info (remove in production) */}
             <Divider />
-            <div className="text-left text-xs bg-gray-50 p-4 rounded">
+            <div className="text-left text-(length:--ant-font-size) bg-(--ant-color-bg-layout) p-(--ant-padding-md) rounded-(--ant-border-radius)">
               <Typography.Text strong>
                 Debug Info (remove in production):
               </Typography.Text>
-              <pre className="mt-2 text-xs overflow-auto">
+              <pre className="mt-(--ant-margin-xs) text-(length:--ant-font-size) overflow-auto">
                 {JSON.stringify(
                   {
                     email: auth.user?.profile.email,

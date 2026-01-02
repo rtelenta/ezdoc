@@ -6,20 +6,31 @@ import {
   SettingOutlined,
   LogoutOutlined,
   BellOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, Avatar, Badge } from "antd";
+import { Layout, Button, Dropdown, Avatar, Badge, theme } from "antd";
 import type { MenuProps } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
 import { constants } from "@/config/constants";
+
+const { Header } = Layout;
 
 interface TopBarProps {
   onSidebarToggle: () => void;
+  isSidebarCollapsed: boolean;
 }
 
-export const TopBar = ({ onSidebarToggle }: TopBarProps) => {
+export const TopBar = ({
+  onSidebarToggle,
+  isSidebarCollapsed,
+}: TopBarProps) => {
   const auth = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
   const user = auth.user;
   const userEmail = user?.profile?.email || "";
@@ -51,22 +62,14 @@ export const TopBar = ({ onSidebarToggle }: TopBarProps) => {
   const userMenuItems: MenuProps["items"] = [
     {
       key: "profile",
-      label: (
-        <div className="flex items-center space-x-2 py-1">
-          <UserOutlined />
-          <span>{t("topbar.profile")}</span>
-        </div>
-      ),
+      label: t("topbar.profile"),
+      icon: <UserOutlined />,
       onClick: handleProfile,
     },
     {
       key: "settings",
-      label: (
-        <div className="flex items-center space-x-2 py-1">
-          <SettingOutlined />
-          <span>{t("topbar.settings")}</span>
-        </div>
-      ),
+      label: t("topbar.settings"),
+      icon: <SettingOutlined />,
       onClick: handleSettings,
     },
     {
@@ -74,40 +77,45 @@ export const TopBar = ({ onSidebarToggle }: TopBarProps) => {
     },
     {
       key: "logout",
-      label: (
-        <div className="flex items-center space-x-2 py-1 text-red-600">
-          <LogoutOutlined />
-          <span>{t("auth.signOut")}</span>
-        </div>
-      ),
+      label: t("auth.signOut"),
+      icon: <LogoutOutlined />,
+      danger: true,
       onClick: handleLogout,
     },
   ];
 
   return (
-    <div className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6">
-      {/* Left side - mobile menu button and page title */}
-      <div className="flex items-center space-x-4">
-        {/* Mobile menu button - only visible on mobile */}
-        <Button
-          type="text"
-          icon={<MenuOutlined />}
-          onClick={onSidebarToggle}
-          className="md:hidden hover:bg-gray-100"
-        />
-      </div>
+    <Header
+      style={{
+        padding: 0,
+        background: colorBgContainer,
+      }}
+      className="flex"
+    >
+      <Button
+        type="text"
+        icon={
+          isSidebarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+        }
+        onClick={onSidebarToggle}
+        style={{
+          fontSize: "16px",
+          width: 64,
+          height: 64,
+        }}
+        className="mr-auto"
+      />
 
       {/* Right side - user actions */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 p-4">
         {/* Notifications */}
         <Button
           type="text"
           icon={
             <Badge count={0} size="small">
-              <BellOutlined className="text-gray-600" />
+              <BellOutlined className="text-(--ant-color-text-secondary)" />
             </Badge>
           }
-          className="hover:bg-gray-100"
         />
 
         {/* User dropdown */}
@@ -116,19 +124,19 @@ export const TopBar = ({ onSidebarToggle }: TopBarProps) => {
           placement="bottomRight"
           trigger={["click"]}
         >
-          <div className="flex items-center space-x-2 hover:bg-gray-100 rounded-lg px-3 py-2 transition-colors cursor-pointer">
+          <div className="flex items-center space-x-2 hover:bg-(--ant-color-bg-text-hover) rounded-(--ant-border-radius-lg) px-(--ant-padding-sm) py-(--ant-padding-xs) transition-colors cursor-pointer">
             <Avatar icon={<UserOutlined />} size="default" />
-            <div className="hidden md:flex flex-col items-start ml-2">
-              <span className="text-sm font-medium text-gray-800 leading-tight">
+            <div className="hidden md:flex flex-col items-start ml-(--ant-margin-xs)">
+              <span className="text-(length:--ant-font-size-sm) font-medium text-(--ant-color-text) leading-tight">
                 {userName}
               </span>
-              <span className="text-xs text-gray-500 leading-tight">
+              <span className="text-(length:--ant-font-size) text-(--ant-color-text-secondary) leading-tight">
                 {userEmail}
               </span>
             </div>
           </div>
         </Dropdown>
       </div>
-    </div>
+    </Header>
   );
 };
