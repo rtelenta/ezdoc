@@ -10,10 +10,6 @@ import {
   Dropdown,
   Modal,
   Empty,
-  Space,
-  Row,
-  Col,
-  Statistic,
   Typography,
   Alert,
   message,
@@ -21,11 +17,7 @@ import {
 import {
   PlusOutlined,
   SearchOutlined,
-  EyeOutlined,
-  EditOutlined,
   DeleteOutlined,
-  DownloadOutlined,
-  CopyOutlined,
   MoreOutlined,
 } from "@ant-design/icons";
 import type { ColumnsType, TableProps } from "antd/es/table";
@@ -72,75 +64,14 @@ export function TemplatesPage() {
     });
   };
 
-  const handleAction = (key: string, template: TemplateType) => {
-    switch (key) {
-      case "view":
-        break;
-      case "download":
-        console.log("Downloading template:", template);
-        break;
-      case "edit":
-        console.log("Editing template:", template);
-        break;
-      case "duplicate":
-        console.log("Duplicating template:", template);
-        break;
-      default:
-        break;
-    }
-  };
-
   const getActionMenuItems = (template: TemplateType): MenuProps["items"] => [
-    {
-      key: "view",
-      label: (
-        <Space>
-          <EyeOutlined />
-          {t("templates.actions.view")}
-        </Space>
-      ),
-      onClick: () => handleAction("view", template),
-    },
-    {
-      key: "download",
-      label: (
-        <Space>
-          <DownloadOutlined />
-          {t("templates.actions.download")}
-        </Space>
-      ),
-      onClick: () => handleAction("download", template),
-    },
-    {
-      key: "edit",
-      label: (
-        <Space>
-          <EditOutlined />
-          {t("templates.actions.edit")}
-        </Space>
-      ),
-      onClick: () => handleAction("edit", template),
-    },
-    {
-      key: "duplicate",
-      label: (
-        <Space>
-          <CopyOutlined />
-          {t("templates.actions.duplicate")}
-        </Space>
-      ),
-      onClick: () => handleAction("duplicate", template),
-    },
-    {
-      type: "divider",
-    },
     {
       key: "delete",
       label: (
-        <Space className="text-(--ant-color-error)">
-          <DeleteOutlined />
+        <span className="text-(--ant-color-error)">
+          <DeleteOutlined className="mr-(--ant-margin-xs)" />
           {t("templates.actions.delete")}
-        </Space>
+        </span>
       ),
       onClick: () => handleDelete(template),
     },
@@ -233,7 +164,7 @@ export function TemplatesPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {/* Header Section */}
       <div>
         <Title level={2} className="mb-(--ant-margin-xs)">
@@ -254,47 +185,6 @@ export function TemplatesPage() {
           closable
         />
       )}
-
-      {/* Statistics Cards */}
-      <Row gutter={[16, 16]}>
-        <Col xs={24} sm={12} md={6}>
-          <Card>
-            <Statistic
-              title="Total de Plantillas"
-              value={templates?.length || 0}
-              loading={isLoading}
-              styles={{ content: { color: "#1890ff" } }}
-            />
-          </Card>
-        </Col>
-        <Col xs={24} sm={12} md={6}>
-          <Card>
-            <Statistic
-              title="Subidas Este Mes"
-              value={2}
-              styles={{ content: { color: "#3f8600" } }}
-            />
-          </Card>
-        </Col>
-        <Col xs={24} sm={12} md={6}>
-          <Card>
-            <Statistic
-              title="Más Utilizadas"
-              value={5}
-              styles={{ content: { color: "#722ed1" } }}
-            />
-          </Card>
-        </Col>
-        <Col xs={24} sm={12} md={6}>
-          <Card>
-            <Statistic
-              title="Tamaño Total"
-              value="2.1 MB"
-              styles={{ content: { color: "#eb2f96" } }}
-            />
-          </Card>
-        </Col>
-      </Row>
 
       {/* Actions and Filters */}
       <Card>

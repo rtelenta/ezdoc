@@ -77,11 +77,7 @@
       "actions": "Acciones"
     },
     "actions": {
-      "view": "Ver Detalles",
-      "download": "Descargar",
-      "edit": "Editar",
-      "delete": "Eliminar",
-      "duplicate": "Duplicar"
+      "delete": "Eliminar"
     },
     "filters": {
       "all": "Todas",
