@@ -34,6 +34,7 @@ import type { ColumnsType, TableProps } from "antd/es/table";
 import type { MenuProps } from "antd";
 import { useGetTemplates } from "../useCases/useGetTemplates";
 import type { TemplateType } from "../types/TemplateType";
+import { ViewTemplateModal } from "../components/ViewTemplateModal";
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -45,6 +46,7 @@ export function TemplatesPage() {
   const [searchText, setSearchText] = useState("");
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
+  const [viewModalVisible, setViewModalVisible] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateType | null>(
     null
   );
@@ -68,7 +70,8 @@ export function TemplatesPage() {
   const handleAction = (key: string, template: TemplateType) => {
     switch (key) {
       case "view":
-        console.log("Viewing template:", template);
+        setSelectedTemplate(template);
+        setViewModalVisible(true);
         break;
       case "download":
         console.log("Downloading template:", template);
@@ -402,6 +405,17 @@ export function TemplatesPage() {
           </Dragger>
         </div>
       </Modal>
+
+      {/* View Template Modal */}
+      <ViewTemplateModal
+        open={viewModalVisible}
+        template={selectedTemplate}
+        key={selectedTemplate?.id}
+        onClose={() => {
+          setViewModalVisible(false);
+          setSelectedTemplate(null);
+        }}
+      />
     </div>
   );
 }

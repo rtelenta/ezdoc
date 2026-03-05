@@ -6,5 +6,4 @@ export interface TemplateType {
     email: string;
   };
   created_at: string;
-  view_link: string;
 }
