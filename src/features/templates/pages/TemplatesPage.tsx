@@ -33,7 +33,6 @@ import type { MenuProps } from "antd";
 import { useGetTemplates } from "../useCases/useGetTemplates";
 import { useDeleteTemplate } from "../useCases/useDeleteTemplate";
 import type { TemplateType } from "../types/TemplateType";
-import { ViewTemplateModal } from "../components/ViewTemplateModal";
 import { UploadTemplateModal } from "../components/UploadTemplateModal";
 
 const { Title, Text } = Typography;
@@ -46,7 +45,6 @@ export function TemplatesPage() {
   const [searchText, setSearchText] = useState("");
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
-  const [viewModalVisible, setViewModalVisible] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateType | null>(
     null,
   );
@@ -77,8 +75,6 @@ export function TemplatesPage() {
   const handleAction = (key: string, template: TemplateType) => {
     switch (key) {
       case "view":
-        setSelectedTemplate(template);
-        setViewModalVisible(true);
         break;
       case "download":
         console.log("Downloading template:", template);
@@ -366,17 +362,6 @@ export function TemplatesPage() {
       <UploadTemplateModal
         open={uploadModalVisible}
         onClose={() => setUploadModalVisible(false)}
-      />
-
-      {/* View Template Modal */}
-      <ViewTemplateModal
-        open={viewModalVisible}
-        template={selectedTemplate}
-        key={selectedTemplate?.id}
-        onClose={() => {
-          setViewModalVisible(false);
-          setSelectedTemplate(null);
-        }}
       />
     </div>
   );
