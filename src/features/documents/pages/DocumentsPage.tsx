@@ -3,10 +3,11 @@ import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { Table, Button, Input, Card, Empty, Typography, Alert } from "antd";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import { SearchOutlined, EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import type { ColumnsType, TableProps } from "antd/es/table";
 import { useGetDocuments } from "../useCases/useGetDocuments";
 import type { DocumentType } from "../types/DocumentType";
+import { CreateDocumentModal } from "../components/CreateDocumentModal";
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -15,6 +16,7 @@ export function DocumentsPage() {
   const { t } = useTranslation();
   const { data: documents, isLoading, error } = useGetDocuments();
   const [searchText, setSearchText] = useState("");
+  const [createModalVisible, setCreateModalVisible] = useState(false);
 
   const formatDate = (dateString: string) => {
     return format(new Date(dateString), "dd MMM yyyy, HH:mm", { locale: es });
@@ -123,20 +125,35 @@ export function DocumentsPage() {
       )}
 
       <Card>
-        <Search
-          placeholder={t("documents.searchPlaceholder")}
-          allowClear
-          enterButton={<SearchOutlined />}
-          size="large"
-          className="w-full sm:w-80"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+          <Search
+            placeholder={t("documents.searchPlaceholder")}
+            allowClear
+            enterButton={<SearchOutlined />}
+            size="large"
+            className="w-full sm:w-80"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            size="large"
+            onClick={() => setCreateModalVisible(true)}
+          >
+            {t("documents.create.title")}
+          </Button>
+        </div>
       </Card>
 
       <Card>
         <Table {...tableProps} />
       </Card>
+
+      <CreateDocumentModal
+        open={createModalVisible}
+        onClose={() => setCreateModalVisible(false)}
+      />
     </div>
   );
 }

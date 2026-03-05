@@ -74,6 +74,22 @@
     },
     "actions": {
       "view": "Ver"
+    },
+    "create": {
+      "title": "Nuevo Documento",
+      "template": "Plantilla",
+      "templatePlaceholder": "Selecciona una plantilla",
+      "templateRequired": "La plantilla es requerida",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Descripción del documento",
+      "descriptionRequired": "La descripción es requerida",
+      "data": "Datos (JSON)",
+      "invalidJson": "El JSON no es válido",
+      "submit": "Crear Documento",
+      "success": "Documento creado exitosamente",
+      "error": "Error al crear el documento",
+      "viewUrl": "URL de visualización",
+      "copied": "URL copiada al portapapeles"
     }
   },
   "templates": {
