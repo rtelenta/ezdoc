@@ -1,5 +1,6 @@
 import { DashboardPage } from "@/features/dashboard/pages/DashboardPage";
 import { TemplatesPage } from "@/features/templates/pages/TemplatesPage";
+import { DocumentsPage } from "@/features/documents/pages/DocumentsPage";
 import { Layout } from "@/features/session/components/Layout";
 import { NotFound } from "./components/NotFound";
 import {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "templates",
         element: <TemplatesPage />,
+      },
+      {
+        path: "documents",
+        element: <DocumentsPage />,
       },
     ],
   },

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router";
 import {
   HomeOutlined,
   FileTextOutlined,
+  FileDoneOutlined,
   SettingOutlined,
   UserOutlined,
   TeamOutlined,
@@ -32,6 +33,11 @@ export const Sidebar = ({ collapsed }: SidebarProps) => {
     {
       key: "/templates",
       icon: <FileTextOutlined />,
+      label: t("sidebar.templates"),
+    },
+    {
+      key: "/documents",
+      icon: <FileDoneOutlined />,
       label: t("sidebar.documents"),
     },
     {
@@ -60,7 +66,7 @@ export const Sidebar = ({ collapsed }: SidebarProps) => {
       <div
         className={cx(
           "flex items-center space-x-2 p-(--ant-padding-md)",
-          collapsed ? "justify-center" : "justify-start"
+          collapsed ? "justify-center" : "justify-start",
         )}
       >
         <div className="w-8 h-8 shrink-0 bg-(--ant-color-primary) rounded-(--ant-border-radius-lg) flex items-center justify-center">
