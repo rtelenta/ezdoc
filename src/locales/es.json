@@ -93,7 +93,9 @@
       "title": "¿Eliminar plantilla?",
       "description": "Esta acción no se puede deshacer. La plantilla será eliminada permanentemente.",
       "confirm": "Sí, eliminar",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "success": "Plantilla eliminada exitosamente",
+      "error": "Error al eliminar la plantilla"
     },
     "upload": {
       "title": "Subir Nueva Plantilla",

@@ -16,6 +16,7 @@ import {
   Statistic,
   Typography,
   Alert,
+  message,
 } from "antd";
 import {
   PlusOutlined,
@@ -30,6 +31,7 @@ import {
 import type { ColumnsType, TableProps } from "antd/es/table";
 import type { MenuProps } from "antd";
 import { useGetTemplates } from "../useCases/useGetTemplates";
+import { useDeleteTemplate } from "../useCases/useDeleteTemplate";
 import type { TemplateType } from "../types/TemplateType";
 import { ViewTemplateModal } from "../components/ViewTemplateModal";
 import { UploadTemplateModal } from "../components/UploadTemplateModal";
@@ -40,6 +42,7 @@ const { Search } = Input;
 export function TemplatesPage() {
   const { t } = useTranslation();
   const { data: templates, isLoading, error } = useGetTemplates();
+  const { mutate: deleteTemplate, isPending: isDeleting } = useDeleteTemplate();
   const [searchText, setSearchText] = useState("");
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
@@ -58,10 +61,17 @@ export function TemplatesPage() {
   };
 
   const confirmDelete = () => {
-    // Handle delete logic here
-    console.log("Deleting template:", selectedTemplate);
-    setDeleteModalVisible(false);
-    setSelectedTemplate(null);
+    if (!selectedTemplate) return;
+    deleteTemplate(selectedTemplate.id, {
+      onSuccess: () => {
+        message.success(t("templates.deleteConfirm.success"));
+        setDeleteModalVisible(false);
+        setSelectedTemplate(null);
+      },
+      onError: () => {
+        message.error(t("templates.deleteConfirm.error"));
+      },
+    });
   };
 
   const handleAction = (key: string, template: TemplateType) => {
@@ -330,7 +340,13 @@ export function TemplatesPage() {
           <Button key="cancel" onClick={() => setDeleteModalVisible(false)}>
             {t("templates.deleteConfirm.cancel")}
           </Button>,
-          <Button key="delete" type="primary" danger onClick={confirmDelete}>
+          <Button
+            key="delete"
+            type="primary"
+            danger
+            loading={isDeleting}
+            onClick={confirmDelete}
+          >
             {t("templates.deleteConfirm.confirm")}
           </Button>,
         ]}
@@ -338,7 +354,10 @@ export function TemplatesPage() {
         <p>{t("templates.deleteConfirm.description")}</p>
         {selectedTemplate && (
           <div className="mt-(--ant-margin-md) p-(--ant-padding-sm) bg-(--ant-color-bg-layout) rounded-(--ant-border-radius)">
-            <Text strong>{selectedTemplate.id}</Text>
+            <Text strong>{selectedTemplate.name}</Text>
+            <div className="text-(length:--ant-font-size-sm) text-(--ant-color-text-secondary)">
+              {selectedTemplate.id}
+            </div>
           </div>
         )}
       </Modal>
