@@ -100,7 +100,14 @@
       "dragText": "Arrastra tu archivo aquí o",
       "clickText": "haz clic para seleccionar",
       "supportedFormats": "Formatos soportados: .docx, .doc",
-      "maxSize": "Tamaño máximo: 10MB"
+      "maxSize": "Tamaño máximo: 10MB",
+      "success": "Plantilla subida exitosamente",
+      "error": "Error al subir la plantilla",
+      "nameRequired": "El nombre es requerido",
+      "fileRequired": "Debes seleccionar un archivo",
+      "namePlaceholder": "Nombre de la plantilla",
+      "invalidFormat": "Solo se permiten archivos .doc y .docx",
+      "fileTooLarge": "El archivo debe ser menor a 10MB"
     }
   },
   "common": {

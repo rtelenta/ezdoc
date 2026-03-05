@@ -7,7 +7,7 @@ const getTemplates = async () => {
   return response.data;
 };
 
-const TEMPLATES_QUERY_KEY = "TEMPLATES_QUERY_KEY";
+export const TEMPLATES_QUERY_KEY = "TEMPLATES_QUERY_KEY";
 
 export const useGetTemplates = () => {
   return useQuery({

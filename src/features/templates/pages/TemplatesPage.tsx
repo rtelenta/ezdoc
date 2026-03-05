@@ -9,7 +9,6 @@ import {
   Card,
   Dropdown,
   Modal,
-  Upload,
   Empty,
   Space,
   Row,
@@ -26,8 +25,6 @@ import {
   DeleteOutlined,
   DownloadOutlined,
   CopyOutlined,
-  UploadOutlined,
-  InboxOutlined,
   MoreOutlined,
 } from "@ant-design/icons";
 import type { ColumnsType, TableProps } from "antd/es/table";
@@ -35,10 +32,10 @@ import type { MenuProps } from "antd";
 import { useGetTemplates } from "../useCases/useGetTemplates";
 import type { TemplateType } from "../types/TemplateType";
 import { ViewTemplateModal } from "../components/ViewTemplateModal";
+import { UploadTemplateModal } from "../components/UploadTemplateModal";
 
 const { Title, Text } = Typography;
 const { Search } = Input;
-const { Dragger } = Upload;
 
 export function TemplatesPage() {
   const { t } = useTranslation();
@@ -48,7 +45,7 @@ export function TemplatesPage() {
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
   const [viewModalVisible, setViewModalVisible] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateType | null>(
-    null
+    null,
   );
 
   const formatDate = (dateString: string) => {
@@ -229,32 +226,6 @@ export function TemplatesPage() {
     },
   };
 
-  const uploadProps = {
-    name: "file",
-    multiple: false,
-    accept: ".doc,.docx",
-    beforeUpload: (file: File) => {
-      const isWordDoc =
-        file.type ===
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-        file.type === "application/msword";
-      const isLt10M = file.size / 1024 / 1024 < 10;
-
-      if (!isWordDoc) {
-        console.error("Solo se permiten archivos de Word (.doc, .docx)");
-        return false;
-      }
-      if (!isLt10M) {
-        console.error("El archivo debe ser menor a 10MB");
-        return false;
-      }
-      return false; // Prevent automatic upload for now
-    },
-    onDrop(e: React.DragEvent<HTMLDivElement>) {
-      console.log("Dropped files", e.dataTransfer.files);
-    },
-  };
-
   return (
     <div className="space-y-6">
       {/* Header Section */}
@@ -373,38 +344,10 @@ export function TemplatesPage() {
       </Modal>
 
       {/* Upload Template Modal */}
-      <Modal
-        title={t("templates.upload.title")}
+      <UploadTemplateModal
         open={uploadModalVisible}
-        onCancel={() => setUploadModalVisible(false)}
-        footer={[
-          <Button key="cancel" onClick={() => setUploadModalVisible(false)}>
-            {t("common.cancel")}
-          </Button>,
-          <Button key="upload" type="primary" icon={<UploadOutlined />}>
-            {t("templates.uploadTemplate")}
-          </Button>,
-        ]}
-        width={600}
-      >
-        <div className="py-(--ant-padding-md)">
-          <Dragger {...uploadProps} className="mb-(--ant-margin-md)">
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">
-              {t("templates.upload.dragText")}{" "}
-              <span className="text-(--ant-color-primary)">
-                {t("templates.upload.clickText")}
-              </span>
-            </p>
-            <p className="ant-upload-hint">
-              {t("templates.upload.supportedFormats")} •{" "}
-              {t("templates.upload.maxSize")}
-            </p>
-          </Dragger>
-        </div>
-      </Modal>
+        onClose={() => setUploadModalVisible(false)}
+      />
 
       {/* View Template Modal */}
       <ViewTemplateModal
